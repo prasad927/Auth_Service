@@ -19,7 +19,7 @@ const create = async (req,resp)=>{
             });
 
         } catch (error) {
-            return resp.status(201).json({
+            return resp.status(501).json({
                 data:{},
                 success:false,
                 message:"Something went wrong",
@@ -28,7 +28,26 @@ const create = async (req,resp)=>{
         }
 }
 
+const signIn = async(req,resp)=>{
+    try {
+        const response = await userService.signIn(req.body.email,req.body.password);
+        return resp.status(201).json({
+            success:true,
+            data:response,
+            err:{},
+            message:"Successfully signed in"
+        }); 
+    } catch (error) {
+        return resp.status(501).json({
+            data:{},
+            success:false,
+            message:"Something went wrong while signIn",
+            err:{}
+        });
+    }
+}
 
 module.exports = {
-     create
+     create,
+     signIn
 }

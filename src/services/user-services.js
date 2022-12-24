@@ -18,6 +18,28 @@ class UserService {
         }
     }
 
+    async signIn(email,plainPassword){
+        try {
+            const user = await this.userRepository.getByEmail(email);
+            const isPasswordMatch = this.checkPassword(plainPassword,user.password);
+            if(!isPasswordMatch){
+                console.log("Password does'nt match");
+                throw {error:"Incorrect password"}
+            }
+
+            const newJwt = this.createToken({
+                email:user.email,
+                id:user.id
+            });
+
+            return newJwt;
+
+        } catch (error) {
+            console.log("Something went wrong in the signIn process");
+            throw error;
+        }
+    }
+
     createToken(user){
         try {
             console.log(JWT_KEY);
