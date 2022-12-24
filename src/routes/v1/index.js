@@ -9,5 +9,7 @@ router.post("/signup",
 router.post("/signin",
             AuthRequestValidator.validateUserAuth,
             UserController.signIn);
+router.get("isAuthenticated",
+           UserController.isAuthenticated);
 
 module.exports = router;
