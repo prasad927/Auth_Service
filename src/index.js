@@ -11,7 +11,7 @@ const prepareAndStartServer = ()=>{
     app.use("/api",apiRoutes);
 
     app.listen(PORT,()=>{
-        console.log(`Server started on ${PORT}`)
+        console.log(`Server started on ${PORT}`);
     })
 }
 
