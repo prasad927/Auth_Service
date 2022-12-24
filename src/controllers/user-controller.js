@@ -22,7 +22,7 @@ const create = async (req,resp)=>{
             return resp.status(501).json({
                 data:{},
                 success:false,
-                message:"Something went wrong",
+                message:"Something went wrong while creating user",
                 err:{}
             });
         }
@@ -61,14 +61,34 @@ const isAuthenticated = async (req,resp)=>{
         return resp.status(501).json({
             data:{},
             success:false,
-            message:"Something went wrong while signIn",
+            message:"Something went wrong while authentication",
             err:{}
         });
+    }
+}
+
+const isAdmin = async (req,resp)=>{
+    try {
+        const response = await userService.isAdmin(req.body.id);
+        return resp.status(200).json({
+            data:response,
+            err:{},
+            success:true,
+            message:"Role fetched successfully"
+        });
+    } catch (error) {
+        return resp.status(200).json({
+            data:{},
+            err:error,
+            success:true,
+            message:"Something went wrong"
+        })
     }
 }
 
 module.exports = {
      create,
      signIn,
-     isAuthenticated
+     isAuthenticated,
+     isAdmin
 }

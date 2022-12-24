@@ -73,7 +73,7 @@ class UserService {
             const response = jwt.verify(token,JWT_KEY);
             return response;
         } catch (error) {
-            console.log("Something went wrong in token creation",error);
+            console.log("Something went wrong in token varification",error);
             throw error;
         }
     }
@@ -83,6 +83,15 @@ class UserService {
             return bcrypt.compareSync(userInputPlainPassword,storedEncryptedPassword);
         } catch (error) {
             console.log("Something went wrong in password comparison");
+            throw error;
+        }
+    }
+
+    isAdmin(userId){
+        try {
+            return this.userRepository.isAdmin(userId);
+        } catch (error) {
+            console.log("Something went wrong in service layer");
             throw error;
         }
     }
